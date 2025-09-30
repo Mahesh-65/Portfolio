@@ -48,9 +48,13 @@
                 <div class="contact-form">
                     <form id="contact-form" action="https://api.web3forms.com/submit" method="post" novalidate>
                         <input type="hidden" name="access_key" value="237f6033-f075-4905-b917-b7a4c0146407">
+                        <input type="hidden" name="subject" value="New message from Portfolio Contact Form">
+                        <input type="hidden" name="from_name" value="Portfolio Website">
+                        <input type="text" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;" aria-hidden="true">
                         <div class="form-group">
                             <label for="name" class="form-label">Your Name</label>
                             <input type="text" id="name" class="form-control" placeholder="John Doe" name="name">
+                            <div id="name-error" style="display:none;color:#e53935;font-size:0.9rem;margin-top:6px;">Name cannot be empty.</div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="form-label">Your Email</label>

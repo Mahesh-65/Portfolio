@@ -92,8 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contact-form');
   if (!form) return;
 
+  const nameInput = document.getElementById('name');
   const emailInput = document.getElementById('email');
   const messageInput = document.getElementById('message');
+  const nameError = document.getElementById('name-error');
   const emailError = document.getElementById('email-error');
   const messageError = document.getElementById('message-error');
 
@@ -104,6 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const show = (el) => { if (el) el.style.display = 'block'; };
   const hide = (el) => { if (el) el.style.display = 'none'; };
+
+  const validateName = () => {
+    const ok = nameInput && nameInput.value.trim().length > 0;
+    if (!ok) {
+      show(nameError);
+      nameInput.classList.add('input-error');
+    } else {
+      hide(nameError);
+      nameInput.classList.remove('input-error');
+    }
+    return ok;
+  };
 
   const validateEmail = () => {
     const valid = isValidEmail(emailInput.value);
@@ -118,24 +132,29 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const validateMessage = () => {
-    const hasMessage = messageInput.value.trim().length > 0;
-    if (!hasMessage) {
+    const minLen = 10;
+    const msg = messageInput.value.trim();
+    const ok = msg.length >= minLen;
+    if (!ok) {
+      if (messageError) messageError.textContent = `Message must be at least ${minLen} characters.`;
       show(messageError);
       messageInput.classList.add('input-error');
     } else {
       hide(messageError);
       messageInput.classList.remove('input-error');
     }
-    return hasMessage;
+    return ok;
   };
 
+  if (nameInput) nameInput.addEventListener('input', validateName);
   emailInput.addEventListener('input', validateEmail);
   messageInput.addEventListener('input', validateMessage);
 
   form.addEventListener('submit', (e) => {
+    const nameOk = validateName();
     const emailOk = validateEmail();
     const messageOk = validateMessage();
-    if (!emailOk || !messageOk) {
+    if (!nameOk || !emailOk || !messageOk) {
       e.preventDefault();
     }
   });
