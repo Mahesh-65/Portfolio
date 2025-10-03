@@ -1,4 +1,4 @@
-package in.bushansirgur.personalportfolio;
+package in.Mahesh.personalportfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
